@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+	
+	<bean id="test_1" class="com.javalec.ex.LogAop"/>
+
+	<aop:config>
+		<aop:aspect id = "logger" ref = "test_1">
+			<aop:pointcut expression="within(com.javalec.ex.*)" id="publicM"/>
+			<aop:around pointcut-ref = "publicM" method="loggerAop"/>		
+		</aop:aspect>
+		
+		<aop:aspect id ="logger" ref = "test_1">
+			<aop:pointcut expression="within(com.javalec.ex.*)" id="publicM"/>
+			<aop:before pointcut-ref="publicM" method = "beforeAdvice"></aop:before>		
+		</aop:aspect>
+		
+		<aop:aspect id ="logger" ref = "test_1">
+			<aop:pointcut expression="within(com.javalec.ex.*)" id="publicM"/>
+			<aop:after-returning pointcut-ref="publicM" method = "afterReturningAdvice"></aop:after-returning>		
+		</aop:aspect>
+		
+		<aop:aspect id ="logger" ref = "test_1">
+			<aop:pointcut expression="within(com.javalec.ex.*)" id="publicM"/>
+			<aop:after-throwing pointcut-ref="publicM" method = "afterThrowingAdvice"></aop:after-throwing>		
+		</aop:aspect>
+		
+		<aop:aspect id ="logger" ref = "test_1">
+			<aop:pointcut expression="within(com.javalec.ex.*)" id="publicM"/>
+			<aop:after pointcut-ref="publicM" method = "afterAdvice"></aop:after>		
+		</aop:aspect>
+	</aop:config>
+	
+	<bean id = "student" class = "com.javalec.ex.Student">
+		<property name="name" value = "유수빈"></property>
+		<property name="age" value = "22"></property>
+		<property name="gradeNum" value = "3"></property>
+		<property name="classNum" value = "2"></property>
+	</bean>
+	<bean id = "worker" class = "com.javalec.ex.Worker">
+		<property name="name" value = "박무성"></property>
+		<property name="age" value = "27"></property>
+		<property name="job" value = "개발자"></property>
+	</bean>
+</beans>
